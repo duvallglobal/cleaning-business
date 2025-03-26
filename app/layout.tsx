@@ -5,6 +5,7 @@ import "./globals.css"
 import { MainNav } from "@/components/main-nav"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/lib/firebase/auth-context"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,20 +21,18 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <AuthProvider>
-          <div className="min-h-screen bg-background">
-            <MainNav />
-            <main className="container mx-auto p-4 md:p-8">{children}</main>
-            <Toaster />
-          </div>
-        </AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <AuthProvider>
+            <div className="min-h-screen bg-background">
+              <MainNav />
+              <main className="container mx-auto p-4 md:p-8">{children}</main>
+              <Toaster />
+            </div>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
 }
-
-
-
-import './globals.css'
